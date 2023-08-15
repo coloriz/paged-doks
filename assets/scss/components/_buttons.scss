@@ -3,6 +3,7 @@
   padding: 0.4375rem 0;
 }
 
+#print,
 #mode {
   padding: 0.5rem;
 }
@@ -17,6 +18,7 @@
 }
 
 @include media-breakpoint-up(lg) {
+  #print,
   #mode {
     margin-left: 0.5rem;
     margin-right: 0.25rem;
@@ -58,6 +60,12 @@ pre {
 @include media-breakpoint-down(md) {
   .btn-copy {
     display: none;
+  }
+}
+
+@media print {
+  .btn-copy {
+    display: none !important;
   }
 }
 

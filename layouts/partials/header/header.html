@@ -103,6 +103,13 @@
           {{ end -}}
         </ul>
 
+        {{ if .Site.Params.options.pagedJs -}}
+        <hr class="text-black-50 my-4 d-lg-none">
+        <button id="print" class="btn btn-link" type="button" aria-label="Toggle Paged Media polyfill">
+          <i data-feather="printer" width="20" height="20"></i>
+        </button>
+        {{ end -}}
+
         {{ if .Site.Params.options.darkMode -}}
         <hr class="text-black-50 my-4 d-lg-none">
         <button id="mode" class="btn btn-link" type="button" aria-label="Toggle user interface mode">
