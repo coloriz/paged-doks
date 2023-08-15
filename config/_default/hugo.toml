@@ -106,5 +106,8 @@ rel  = "sitemap"
     source = "node_modules/mermaid"
     target = "assets/js/vendor/mermaid"
   [[module.mounts]]
+    source = "node_modules/pagedjs"
+    target = "assets/js/vendor/pagedjs"
+  [[module.mounts]]
     source = "node_modules/@hyas/images/layouts"
     target = "layouts"

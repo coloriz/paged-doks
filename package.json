@@ -58,6 +58,7 @@
     "markdownlint-cli2": "^0.8.1",
     "netlify-plugin-submit-sitemap": "^0.4.0",
     "node-fetch": "^3.3",
+    "pagedjs": "^0.4.3",
     "postcss": "^8.4",
     "postcss-cli": "^10.1",
     "purgecss-whitelister": "^2.4",

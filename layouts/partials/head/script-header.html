@@ -1,7 +1,40 @@
+{{ if .Site.Params.options.pagedJs -}}
+  {{ $paged := resources.Get "js/vendor/pagedjs/dist/paged.polyfill.js" -}}
+  <script>
+    window.PagedConfig = {
+      auto: false,
+    }
+
+    window.addEventListener('load', function () {
+      const printBtn = document.querySelector('#print');
+      if (printBtn) {
+        printBtn.addEventListener('click', preview);
+      }
+    });
+
+    async function preview() {
+      {{ $options := (dict "targetPath" "interface.css") -}}
+      {{ $pagedInterfaceCss := resources.Get "scss/interface.scss" | toCSS $options -}}
+      const linkTag = document.createElement('link');
+      linkTag.rel = 'stylesheet';
+      linkTag.href = {{ $pagedInterfaceCss.RelPermalink }};
+      document.head.appendChild(linkTag);
+      await window.PagedPolyfill.preview();
+    }
+  </script>
+  {{ if eq (hugo.Environment) "development" -}}
+    <script src="{{ $paged.RelPermalink }}"></script>
+  {{ else -}}
+    {{ $paged := $paged | minify | fingerprint "sha512" -}}
+    <script src="{{ $paged.RelPermalink }}" integrity="{{ $paged.Data.Integrity }}" crossorigin="anonymous"></script>
+  {{ end -}}
+{{ end -}}
+
 {{ if .Site.Params.options.darkMode -}}
   {{ $darkModeInit := resources.Get "js/darkmode-init.js" | js.Build | minify -}}
   <script>{{ $darkModeInit.Content | safeJS }}</script>
 {{ end -}}
+
 {{- if and (.Site.Params.alert) (.Site.Params.alertDismissable) -}}
   {{ $alertInit := resources.Get "js/alert-init.js" | js.Build | minify -}}
   <script>{{ $alertInit.Content | safeJS }}</script>

@@ -104,6 +104,7 @@ lastMod = false
   fullWidth = true
   navbarSticky = true
   toTopButton = false
+  pagedJs = true
 
 [menu]
   [menu.section]
