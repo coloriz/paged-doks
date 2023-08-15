@@ -1,6 +1,8 @@
 {{ $indexTemplate := resources.Get "js/index.js" -}}
 {{ $index := $indexTemplate | resources.ExecuteAsTemplate "index.js" . -}}
 
+{{ $feather := resources.Get "js/feather.js" | js.Build -}}
+
 {{ $bs := resources.Get "js/bootstrap.js" -}}
 {{ $bs := $bs | js.Build -}}
 
@@ -74,6 +76,7 @@
 {{ $js := $slice | resources.Concat "main.js" -}}
 
 {{ if eq (hugo.Environment) "development" -}}
+  <script src="{{ $feather.RelPermalink }}" defer></script>
   {{ if .Site.Params.options.bootStrapJs -}}
     <script src="{{ $bs.RelPermalink }}" defer></script>
   {{ end -}}
@@ -94,11 +97,13 @@
 {{ else -}}
   {{ $js := $js | minify | fingerprint "sha512" -}}
   {{ $index := $index | minify | fingerprint "sha512" -}}
+  {{ $feather := $feather | minify | fingerprint "sha512" -}}
   {{ $bs := $bs | minify | fingerprint "sha512" -}}
   {{ $highlight := $highlight | minify | fingerprint "sha512" -}}
   {{ $katex := $katex | minify | fingerprint "sha512" -}}
   {{ $katexAutoRender := $katexAutoRender | minify | fingerprint "sha512" -}}
   {{ $mermaid := $mermaid | minify | fingerprint "sha512" -}}
+  <script src="{{ $feather.RelPermalink }}" integrity="{{ $feather.Data.Integrity }}" crossorigin="anonymous" defer></script>
   {{ if .Site.Params.options.bootStrapJs -}}
     <script src="{{ $bs.RelPermalink }}" integrity="{{ $bs.Data.Integrity }}" crossorigin="anonymous" defer></script>
   {{ end -}}
