@@ -17,13 +17,11 @@ function inputFocus(e) {
 }
 
 document.addEventListener('click', function(event) {
-
   var isClickInsideElement = suggestions.contains(event.target);
 
   if (!isClickInsideElement) {
     suggestions.classList.add('d-none');
   }
-
 });
 
 /*
